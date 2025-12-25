@@ -18,14 +18,14 @@ pub struct FlashLoanStart<'info> {
         seeds = [PROGRAM_SEED_PREFIX, ProtocolState::SEED],
         bump = protocol_state.bump,
     )]
-    pub protocol_state: Account<'info, ProtocolState>,
+    pub protocol_state: Box<Account<'info, ProtocolState>>,
 
     #[account(
         mut,
         seeds = [PROGRAM_SEED_PREFIX, Market::SEED, &market_id],
         bump = market.bump,
     )]
-    pub market: Account<'info, Market>,
+    pub market: Box<Account<'info, Market>>,
 
     #[account(
         mut,
@@ -108,7 +108,7 @@ pub struct FlashLoanEnd<'info> {
         seeds = [PROGRAM_SEED_PREFIX, Market::SEED, &market_id],
         bump = market.bump,
     )]
-    pub market: Account<'info, Market>,
+    pub market: Box<Account<'info, Market>>,
 
     #[account(
         mut,

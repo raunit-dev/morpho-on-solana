@@ -29,20 +29,20 @@ pub struct SupplyCollateral<'info> {
         seeds = [PROGRAM_SEED_PREFIX, ProtocolState::SEED],
         bump = protocol_state.bump,
     )]
-    pub protocol_state: Account<'info, ProtocolState>,
+    pub protocol_state: Box<Account<'info, ProtocolState>>,
 
     #[account(
         seeds = [PROGRAM_SEED_PREFIX, Market::SEED, &market_id],
         bump = market.bump,
     )]
-    pub market: Account<'info, Market>,
+    pub market: Box<Account<'info, Market>>,
 
     #[account(
         mut,
         seeds = [PROGRAM_SEED_PREFIX, Position::SEED, &market_id, on_behalf_of.key().as_ref()],
         bump = position.bump,
     )]
-    pub position: Account<'info, Position>,
+    pub position: Box<Account<'info, Position>>,
 
     /// CHECK: Position owner
     pub on_behalf_of: UncheckedAccount<'info>,
@@ -118,21 +118,21 @@ pub struct WithdrawCollateral<'info> {
         seeds = [PROGRAM_SEED_PREFIX, ProtocolState::SEED],
         bump = protocol_state.bump,
     )]
-    pub protocol_state: Account<'info, ProtocolState>,
+    pub protocol_state: Box<Account<'info, ProtocolState>>,
 
     #[account(
         mut,
         seeds = [PROGRAM_SEED_PREFIX, Market::SEED, &market_id],
         bump = market.bump,
     )]
-    pub market: Account<'info, Market>,
+    pub market: Box<Account<'info, Market>>,
 
     #[account(
         mut,
         seeds = [PROGRAM_SEED_PREFIX, Position::SEED, &market_id, position.owner.as_ref()],
         bump = position.bump,
     )]
-    pub position: Account<'info, Position>,
+    pub position: Box<Account<'info, Position>>,
 
     pub authorization: Option<Account<'info, Authorization>>,
 
@@ -260,21 +260,21 @@ pub struct Borrow<'info> {
         seeds = [PROGRAM_SEED_PREFIX, ProtocolState::SEED],
         bump = protocol_state.bump,
     )]
-    pub protocol_state: Account<'info, ProtocolState>,
+    pub protocol_state: Box<Account<'info, ProtocolState>>,
 
     #[account(
         mut,
         seeds = [PROGRAM_SEED_PREFIX, Market::SEED, &market_id],
         bump = market.bump,
     )]
-    pub market: Account<'info, Market>,
+    pub market: Box<Account<'info, Market>>,
 
     #[account(
         mut,
         seeds = [PROGRAM_SEED_PREFIX, Position::SEED, &market_id, position.owner.as_ref()],
         bump = position.bump,
     )]
-    pub position: Account<'info, Position>,
+    pub position: Box<Account<'info, Position>>,
 
     pub authorization: Option<Account<'info, Authorization>>,
 
@@ -411,14 +411,14 @@ pub struct Repay<'info> {
         seeds = [PROGRAM_SEED_PREFIX, Market::SEED, &market_id],
         bump = market.bump,
     )]
-    pub market: Account<'info, Market>,
+    pub market: Box<Account<'info, Market>>,
 
     #[account(
         mut,
         seeds = [PROGRAM_SEED_PREFIX, Position::SEED, &market_id, on_behalf_of.key().as_ref()],
         bump = position.bump,
     )]
-    pub position: Account<'info, Position>,
+    pub position: Box<Account<'info, Position>>,
 
     /// CHECK: Position owner
     pub on_behalf_of: UncheckedAccount<'info>,

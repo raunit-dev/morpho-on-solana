@@ -13,9 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Card } from "@/components/ui/card";
-import { useWallet } from "@/lib/mock-wallet";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { useMorphoProgram, deriveProtocolState, deriveMarket, derivePosition } from "@/lib/anchor-client";
+import { BN } from "@coral-xyz/anchor";
+import { PublicKey } from "@solana/web3.js";
+import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { AlertCircle } from "lucide-react";
 
 interface BorrowModalProps {
@@ -24,6 +28,7 @@ interface BorrowModalProps {
     collateralSymbol: string;
     lltv: number;
     borrowApy: number;
+    loanMint?: string;
 }
 
 export function BorrowModal({
@@ -31,38 +36,89 @@ export function BorrowModal({
     tokenSymbol,
     collateralSymbol,
     lltv,
-    borrowApy
+    borrowApy,
+    loanMint,
 }: BorrowModalProps) {
-    const { connected, connect } = useWallet();
+    const { connected, publicKey } = useWallet();
+    const { program } = useMorphoProgram();
     const [amount, setAmount] = useState("");
     const [targetLtv, setTargetLtv] = useState(0);
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    // Auto-calculate amount based on LTV slider (mock logic)
     useEffect(() => {
         if (targetLtv > 0) {
-            // Assuming 1000 collateral value for mock
             const borrowPower = 1000 * (targetLtv / 100);
             setAmount(borrowPower.toFixed(2));
         }
     }, [targetLtv]);
 
-    const handleBorrow = () => {
-        if (!amount) return;
+    const handleBorrow = async () => {
+        if (!amount || !program || !publicKey) return;
 
-        toast.promise(new Promise((resolve) => setTimeout(resolve, 2000)), {
-            loading: 'Processing borrow...',
-            success: () => {
-                setOpen(false);
-                setAmount("");
-                return `Successfully borrowed ${amount} ${tokenSymbol}`;
-            },
-            error: 'Transaction failed',
-        });
+        setLoading(true);
+        try {
+            // Convert market_id string to bytes
+            const marketIdBytes = new Uint8Array(32).fill(0);
+            const encoder = new TextEncoder();
+            const encoded = encoder.encode(marketId);
+            marketIdBytes.set(encoded.slice(0, 32));
+
+            const [protocolState] = deriveProtocolState();
+            const [market] = deriveMarket(marketIdBytes);
+            const [position] = derivePosition(marketIdBytes, publicKey);
+
+            const loanMintPubkey = loanMint
+                ? new PublicKey(loanMint)
+                : new PublicKey("So11111111111111111111111111111111111111112");
+
+            const receiverTokenAccount = await getAssociatedTokenAddress(
+                loanMintPubkey,
+                publicKey
+            );
+
+            const loanVault = PublicKey.findProgramAddressSync(
+                [Buffer.from("morpho"), Buffer.from("loan_vault"), marketIdBytes],
+                program.programId
+            )[0];
+
+            const amountBN = new BN(parseFloat(amount) * 1e9);
+
+            // Note: In production, you'd need an actual oracle account
+            const mockOracle = PublicKey.default;
+
+            await program.methods
+                .borrow(Array.from(marketIdBytes), amountBN, new BN(0))
+                .accounts({
+                    caller: publicKey,
+                    protocolState,
+                    market,
+                    position,
+                    oracle: mockOracle,
+                    receiverTokenAccount,
+                    loanVault,
+                    loanMint: loanMintPubkey,
+                    tokenProgram: TOKEN_PROGRAM_ID,
+                })
+                .rpc();
+
+            toast.success("Borrow Successful", {
+                description: `Borrowed ${amount} ${tokenSymbol}`,
+            });
+            setOpen(false);
+            setAmount("");
+        } catch (error) {
+            console.error("Borrow error:", error);
+            toast.error("Borrow Failed", {
+                description: error instanceof Error ? error.message : "Transaction failed",
+            });
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (!connected) {
-        return <Button onClick={connect}>Connect to Borrow</Button>;
+        return <Button variant="secondary" disabled>Connect Wallet</Button>;
     }
 
     return (
@@ -74,7 +130,7 @@ export function BorrowModal({
                 <DialogHeader>
                     <DialogTitle>Borrow {tokenSymbol}</DialogTitle>
                     <DialogDescription>
-                        Collateral: {collateralSymbol} | Max LTV: {lltv}%
+                        Collateral: {collateralSymbol} | Max LTV: {lltv}% | Network: Devnet
                     </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-6 py-4">
@@ -87,7 +143,6 @@ export function BorrowModal({
                                 value={amount}
                                 onChange={(e) => {
                                     setAmount(e.target.value);
-                                    // Mock update LTV based on amount
                                     setTargetLtv(Math.min(Number(e.target.value) / 10, lltv));
                                 }}
                                 type="number"
@@ -111,7 +166,6 @@ export function BorrowModal({
                             max={lltv}
                             step={1}
                             onValueChange={(vals) => setTargetLtv(vals[0])}
-                            className={targetLtv > 80 ? "text-red-500" : ""}
                         />
                         {targetLtv > 80 && (
                             <p className="text-xs text-red-500 flex items-center gap-1">
@@ -122,8 +176,8 @@ export function BorrowModal({
 
                     <div className="grid grid-cols-2 gap-4">
                         <Card className="p-3 bg-secondary/50 border-none">
-                            <div className="text-xs text-muted-foreground">Liquidation Price</div>
-                            <div className="text-lg font-mono font-medium">$1,850.20</div>
+                            <div className="text-xs text-muted-foreground">Network</div>
+                            <div className="text-lg font-mono font-medium text-orange-500">Devnet</div>
                         </Card>
                         <Card className="p-3 bg-secondary/50 border-none">
                             <div className="text-xs text-muted-foreground">Borrow APY</div>
@@ -131,8 +185,8 @@ export function BorrowModal({
                         </Card>
                     </div>
                 </div>
-                <Button onClick={handleBorrow} className="w-full" disabled={!amount}>
-                    Confirm Borrow
+                <Button onClick={handleBorrow} className="w-full" disabled={!amount || loading}>
+                    {loading ? "Processing..." : "Confirm Borrow"}
                 </Button>
             </DialogContent>
         </Dialog>

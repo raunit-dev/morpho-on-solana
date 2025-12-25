@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
-import { WalletProvider } from "@/lib/mock-wallet";
+import { WalletContextProvider } from "@/lib/wallet-adapter";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-background text-foreground`}
       >
-        <WalletProvider>
+        <WalletContextProvider>
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1 container py-8">
@@ -38,7 +38,7 @@ export default function RootLayout({
             </main>
             <Toaster />
           </div>
-        </WalletProvider>
+        </WalletContextProvider>
       </body>
     </html>
   );

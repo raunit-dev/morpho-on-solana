@@ -27,14 +27,14 @@ pub struct Liquidate<'info> {
         seeds = [PROGRAM_SEED_PREFIX, Market::SEED, &market_id],
         bump = market.bump,
     )]
-    pub market: Account<'info, Market>,
+    pub market: Box<Account<'info, Market>>,
 
     #[account(
         mut,
         seeds = [PROGRAM_SEED_PREFIX, Position::SEED, &market_id, borrower.key().as_ref()],
         bump = borrower_position.bump,
     )]
-    pub borrower_position: Account<'info, Position>,
+    pub borrower_position: Box<Account<'info, Position>>,
 
     /// CHECK: Borrower being liquidated
     pub borrower: UncheckedAccount<'info>,

@@ -2,18 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { useWallet } from "@/lib/mock-wallet";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { cn } from "@/lib/utils";
-import { Copy, LogOut, Wallet } from "lucide-react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const navItems = [
     { name: "Markets", href: "/markets" },
@@ -24,7 +15,7 @@ const navItems = [
 
 export function Navbar() {
     const pathname = usePathname();
-    const { connected, publicKey, connect, disconnect, balance } = useWallet();
+    const { connected } = useWallet();
 
     return (
         <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
@@ -57,40 +48,19 @@ export function Navbar() {
 
                 <div className="flex items-center gap-4">
                     <div className="hidden md:flex items-center text-sm font-medium text-muted-foreground border rounded-full px-3 py-1">
-                        <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
+                        <span className={cn(
+                            "w-2 h-2 rounded-full mr-2",
+                            connected ? "bg-green-500" : "bg-orange-500"
+                        )}></span>
                         Devnet
                     </div>
 
-                    {connected ? (
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="gap-2">
-                                    <Wallet className="h-4 w-4" />
-                                    {publicKey}
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-56">
-                                <DropdownMenuLabel>My Wallet</DropdownMenuLabel>
-                                <div className="px-2 py-1.5 text-sm font-medium text-muted-foreground">
-                                    Balance: {balance.toFixed(2)} SOL
-                                </div>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem onClick={() => navigator.clipboard.writeText("MockPublicKey123")}>
-                                    <Copy className="mr-2 h-4 w-4" />
-                                    Copy Address
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={disconnect} className="text-destructive focus:text-destructive">
-                                    <LogOut className="mr-2 h-4 w-4" />
-                                    Disconnect
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    ) : (
-                        <Button onClick={connect} className="gap-2">
-                            <Wallet className="h-4 w-4" />
-                            Connect Wallet
-                        </Button>
-                    )}
+                    <WalletMultiButton style={{
+                        backgroundColor: 'hsl(var(--primary))',
+                        borderRadius: '0.5rem',
+                        fontSize: '0.875rem',
+                        height: '2.5rem',
+                    }} />
                 </div>
             </div>
         </nav>

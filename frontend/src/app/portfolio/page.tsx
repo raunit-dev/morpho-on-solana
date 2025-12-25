@@ -4,8 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { useWallet } from "@/lib/mock-wallet";
-import { Button } from "@/components/ui/button";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { Wallet } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -20,7 +20,7 @@ const chartData = [
 ];
 
 export default function PortfolioPage() {
-    const { connected, connect } = useWallet();
+    const { connected } = useWallet();
 
     if (!connected) {
         return (
@@ -32,7 +32,12 @@ export default function PortfolioPage() {
                 <p className="text-muted-foreground max-w-sm">
                     Connect your wallet to view your positions, rewards, and transaction history.
                 </p>
-                <Button onClick={connect} size="lg">Connect Wallet</Button>
+                <WalletMultiButton style={{
+                    backgroundColor: 'hsl(var(--primary))',
+                    borderRadius: '0.5rem',
+                    fontSize: '1rem',
+                    padding: '0.75rem 1.5rem',
+                }} />
             </div>
         );
     }
