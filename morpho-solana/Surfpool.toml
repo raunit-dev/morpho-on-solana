@@ -1,0 +1,24 @@
+network: devnet
+rpc_endpoint: https://api.devnet.solana.com
+
+# Fork state from devnet for testing
+fork:
+  # Switchboard program on devnet
+  programs:
+    - Aio4gaXjXzJNVLtzwtNVmSqGKpANtXhybbkhtAC94ji2  # Switchboard V2 Program
+  
+  # Switchboard queue and common feeds on devnet
+  accounts:
+    - EYiAmGSdsQTuCw413V5BzaruWuCCSDgTP1BGvLkXHbe7  # Default Devnet Queue
+  
+# Load our Morpho program
+programs:
+  morpho_solana:
+    binary: ./target/deploy/morpho_solana.so
+
+# Simulation settings
+simulation:
+  # Allow time warping for interest accrual tests
+  time_travel: true
+  # Enable cheatcodes for token balance manipulation
+  cheatcodes: true

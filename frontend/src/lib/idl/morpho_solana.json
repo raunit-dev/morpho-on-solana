@@ -1,0 +1,5251 @@
+{
+  "address": "MorphoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "metadata": {
+    "name": "morpho_solana",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Morpho Blue lending protocol on Solana"
+  },
+  "instructions": [
+    {
+      "name": "accept_ownership",
+      "discriminator": [
+        172,
+        23,
+        43,
+        13,
+        238,
+        213,
+        85,
+        150
+      ],
+      "accounts": [
+        {
+          "name": "pending_owner",
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "accrue_interest",
+      "discriminator": [
+        47,
+        40,
+        115,
+        198,
+        91,
+        12,
+        222,
+        49
+      ],
+      "accounts": [
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "borrow",
+      "discriminator": [
+        228,
+        253,
+        131,
+        202,
+        207,
+        116,
+        89,
+        18
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "position.owner",
+                "account": "Position"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authorization",
+          "optional": true
+        },
+        {
+          "name": "oracle"
+        },
+        {
+          "name": "receiver_token_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  108,
+                  111,
+                  97,
+                  110,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "assets",
+          "type": "u128"
+        },
+        {
+          "name": "max_shares",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "claim_fees",
+      "discriminator": [
+        82,
+        251,
+        233,
+        156,
+        12,
+        52,
+        184,
+        202
+      ],
+      "accounts": [
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "fee_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "protocol_state.fee_recipient",
+                "account": "ProtocolState"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "close_position",
+      "discriminator": [
+        123,
+        134,
+        81,
+        0,
+        49,
+        68,
+        98,
+        98
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "rent_receiver",
+          "writable": true
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_market",
+      "discriminator": [
+        103,
+        226,
+        97,
+        235,
+        200,
+        188,
+        251,
+        254
+      ],
+      "accounts": [
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint"
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "collateral_vault",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true
+        },
+        {
+          "name": "oracle"
+        },
+        {
+          "name": "irm"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "collateral_mint_key",
+          "type": "pubkey"
+        },
+        {
+          "name": "loan_mint_key",
+          "type": "pubkey"
+        },
+        {
+          "name": "oracle_key",
+          "type": "pubkey"
+        },
+        {
+          "name": "irm_key",
+          "type": "pubkey"
+        },
+        {
+          "name": "lltv",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "create_position",
+      "discriminator": [
+        48,
+        215,
+        197,
+        153,
+        96,
+        203,
+        180,
+        133
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "market",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "enable_irm",
+      "discriminator": [
+        186,
+        29,
+        17,
+        189,
+        228,
+        25,
+        238,
+        179
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "irm",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "enable_lltv",
+      "discriminator": [
+        70,
+        117,
+        38,
+        77,
+        18,
+        118,
+        13,
+        102
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "lltv",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "flash_loan",
+      "discriminator": [
+        239,
+        246,
+        59,
+        224,
+        139,
+        20,
+        175,
+        14
+      ],
+      "accounts": [
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "borrower_token_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  108,
+                  111,
+                  97,
+                  110,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "flash_loan_end",
+      "discriminator": [
+        178,
+        170,
+        2,
+        78,
+        240,
+        23,
+        190,
+        178
+      ],
+      "accounts": [
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "borrower_token_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  108,
+                  111,
+                  97,
+                  110,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "borrowed_amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "flash_loan_start",
+      "discriminator": [
+        160,
+        231,
+        42,
+        170,
+        22,
+        80,
+        126,
+        186
+      ],
+      "accounts": [
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "borrower_token_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  108,
+                  111,
+                  97,
+                  110,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "owner",
+          "type": "pubkey"
+        },
+        {
+          "name": "fee_recipient",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "liquidate",
+      "discriminator": [
+        223,
+        179,
+        226,
+        125,
+        48,
+        46,
+        39,
+        74
+      ],
+      "accounts": [
+        {
+          "name": "liquidator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "borrower_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "borrower"
+              }
+            ]
+          }
+        },
+        {
+          "name": "borrower"
+        },
+        {
+          "name": "oracle"
+        },
+        {
+          "name": "liquidator_loan_account",
+          "writable": true
+        },
+        {
+          "name": "liquidator_collateral_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  108,
+                  111,
+                  97,
+                  110,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "collateral_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  99,
+                  111,
+                  108,
+                  108,
+                  97,
+                  116,
+                  101,
+                  114,
+                  97,
+                  108,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "collateral_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "seized_assets",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "repay",
+      "discriminator": [
+        234,
+        103,
+        67,
+        82,
+        208,
+        234,
+        219,
+        166
+      ],
+      "accounts": [
+        {
+          "name": "repayer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "on_behalf_of"
+              }
+            ]
+          }
+        },
+        {
+          "name": "on_behalf_of"
+        },
+        {
+          "name": "repayer_token_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  108,
+                  111,
+                  97,
+                  110,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "assets",
+          "type": "u128"
+        },
+        {
+          "name": "shares",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "revoke_authorization",
+      "discriminator": [
+        222,
+        179,
+        207,
+        59,
+        191,
+        78,
+        24,
+        248
+      ],
+      "accounts": [
+        {
+          "name": "authorizer",
+          "signer": true
+        },
+        {
+          "name": "authorization",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  122,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authorizer"
+              },
+              {
+                "kind": "account",
+                "path": "authorization.authorized",
+                "account": "Authorization"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "set_authorization",
+      "discriminator": [
+        5,
+        166,
+        202,
+        161,
+        200,
+        241,
+        154,
+        49
+      ],
+      "accounts": [
+        {
+          "name": "authorizer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authorized"
+        },
+        {
+          "name": "authorization",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  122,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authorizer"
+              },
+              {
+                "kind": "account",
+                "path": "authorized"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "is_authorized",
+          "type": "bool"
+        },
+        {
+          "name": "expires_at",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "set_fee",
+      "discriminator": [
+        18,
+        154,
+        24,
+        18,
+        237,
+        214,
+        19,
+        80
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "fee",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_fee_recipient",
+      "discriminator": [
+        227,
+        18,
+        215,
+        42,
+        237,
+        246,
+        151,
+        66
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_recipient",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_market_paused",
+      "discriminator": [
+        233,
+        31,
+        161,
+        248,
+        178,
+        111,
+        102,
+        65
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_protocol_paused",
+      "discriminator": [
+        47,
+        62,
+        75,
+        69,
+        166,
+        0,
+        147,
+        157
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "supply",
+      "discriminator": [
+        81,
+        67,
+        116,
+        61,
+        250,
+        209,
+        5,
+        198
+      ],
+      "accounts": [
+        {
+          "name": "supplier",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "on_behalf_of"
+              }
+            ]
+          }
+        },
+        {
+          "name": "on_behalf_of"
+        },
+        {
+          "name": "supplier_token_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  108,
+                  111,
+                  97,
+                  110,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "assets",
+          "type": "u128"
+        },
+        {
+          "name": "min_shares",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "supply_collateral",
+      "discriminator": [
+        80,
+        132,
+        192,
+        67,
+        93,
+        50,
+        65,
+        9
+      ],
+      "accounts": [
+        {
+          "name": "depositor",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "on_behalf_of"
+              }
+            ]
+          }
+        },
+        {
+          "name": "on_behalf_of"
+        },
+        {
+          "name": "depositor_token_account",
+          "writable": true
+        },
+        {
+          "name": "collateral_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  99,
+                  111,
+                  108,
+                  108,
+                  97,
+                  116,
+                  101,
+                  114,
+                  97,
+                  108,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "collateral_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "transfer_ownership",
+      "discriminator": [
+        65,
+        177,
+        215,
+        73,
+        53,
+        45,
+        99,
+        47
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_owner",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "position.owner",
+                "account": "Position"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authorization",
+          "docs": [
+            "Optional authorization account"
+          ],
+          "optional": true
+        },
+        {
+          "name": "receiver_token_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  108,
+                  111,
+                  97,
+                  110,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "assets",
+          "type": "u128"
+        },
+        {
+          "name": "shares",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_collateral",
+      "discriminator": [
+        115,
+        135,
+        168,
+        106,
+        139,
+        214,
+        138,
+        150
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "protocol_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              },
+              {
+                "kind": "account",
+                "path": "position.owner",
+                "account": "Position"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authorization",
+          "optional": true
+        },
+        {
+          "name": "oracle"
+        },
+        {
+          "name": "receiver_token_account",
+          "writable": true
+        },
+        {
+          "name": "collateral_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  118,
+                  49
+                ]
+              },
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  114,
+                  112,
+                  104,
+                  111,
+                  95,
+                  99,
+                  111,
+                  108,
+                  108,
+                  97,
+                  116,
+                  101,
+                  114,
+                  97,
+                  108,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "market_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "collateral_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Authorization",
+      "discriminator": [
+        3,
+        68,
+        168,
+        243,
+        195,
+        168,
+        32,
+        75
+      ]
+    },
+    {
+      "name": "Market",
+      "discriminator": [
+        219,
+        190,
+        213,
+        55,
+        0,
+        227,
+        198,
+        154
+      ]
+    },
+    {
+      "name": "Position",
+      "discriminator": [
+        170,
+        188,
+        143,
+        228,
+        122,
+        64,
+        247,
+        208
+      ]
+    },
+    {
+      "name": "ProtocolState",
+      "discriminator": [
+        33,
+        51,
+        173,
+        134,
+        35,
+        140,
+        195,
+        248
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AuthorizationRevoked",
+      "discriminator": [
+        138,
+        205,
+        239,
+        115,
+        117,
+        72,
+        242,
+        86
+      ]
+    },
+    {
+      "name": "AuthorizationSet",
+      "discriminator": [
+        14,
+        69,
+        148,
+        49,
+        14,
+        183,
+        229,
+        227
+      ]
+    },
+    {
+      "name": "BadDebtRealized",
+      "discriminator": [
+        113,
+        185,
+        146,
+        90,
+        190,
+        175,
+        153,
+        113
+      ]
+    },
+    {
+      "name": "Borrow",
+      "discriminator": [
+        130,
+        83,
+        217,
+        91,
+        148,
+        188,
+        156,
+        30
+      ]
+    },
+    {
+      "name": "FeeRecipientSet",
+      "discriminator": [
+        99,
+        140,
+        80,
+        35,
+        245,
+        176,
+        179,
+        110
+      ]
+    },
+    {
+      "name": "FeeSet",
+      "discriminator": [
+        113,
+        74,
+        216,
+        72,
+        193,
+        87,
+        4,
+        232
+      ]
+    },
+    {
+      "name": "FeesClaimed",
+      "discriminator": [
+        22,
+        104,
+        110,
+        222,
+        38,
+        157,
+        14,
+        62
+      ]
+    },
+    {
+      "name": "FlashLoan",
+      "discriminator": [
+        109,
+        86,
+        70,
+        14,
+        213,
+        219,
+        60,
+        97
+      ]
+    },
+    {
+      "name": "InterestAccrued",
+      "discriminator": [
+        79,
+        218,
+        196,
+        73,
+        32,
+        148,
+        138,
+        71
+      ]
+    },
+    {
+      "name": "IrmEnabled",
+      "discriminator": [
+        172,
+        158,
+        227,
+        189,
+        114,
+        44,
+        76,
+        19
+      ]
+    },
+    {
+      "name": "Liquidation",
+      "discriminator": [
+        253,
+        18,
+        85,
+        107,
+        192,
+        175,
+        171,
+        172
+      ]
+    },
+    {
+      "name": "LltvEnabled",
+      "discriminator": [
+        181,
+        121,
+        105,
+        227,
+        208,
+        37,
+        74,
+        235
+      ]
+    },
+    {
+      "name": "MarketCreated",
+      "discriminator": [
+        88,
+        184,
+        130,
+        231,
+        226,
+        84,
+        6,
+        58
+      ]
+    },
+    {
+      "name": "MarketPausedSet",
+      "discriminator": [
+        226,
+        125,
+        174,
+        206,
+        23,
+        215,
+        209,
+        45
+      ]
+    },
+    {
+      "name": "OwnershipTransferStarted",
+      "discriminator": [
+        183,
+        253,
+        239,
+        246,
+        140,
+        179,
+        133,
+        105
+      ]
+    },
+    {
+      "name": "OwnershipTransferred",
+      "discriminator": [
+        172,
+        61,
+        205,
+        183,
+        250,
+        50,
+        38,
+        98
+      ]
+    },
+    {
+      "name": "PositionClosed",
+      "discriminator": [
+        157,
+        163,
+        227,
+        228,
+        13,
+        97,
+        138,
+        121
+      ]
+    },
+    {
+      "name": "PositionCreated",
+      "discriminator": [
+        63,
+        226,
+        54,
+        63,
+        141,
+        22,
+        31,
+        221
+      ]
+    },
+    {
+      "name": "ProtocolInitialized",
+      "discriminator": [
+        173,
+        122,
+        168,
+        254,
+        9,
+        118,
+        76,
+        132
+      ]
+    },
+    {
+      "name": "ProtocolPausedSet",
+      "discriminator": [
+        26,
+        66,
+        32,
+        38,
+        45,
+        70,
+        187,
+        14
+      ]
+    },
+    {
+      "name": "Repay",
+      "discriminator": [
+        163,
+        101,
+        155,
+        40,
+        203,
+        244,
+        185,
+        68
+      ]
+    },
+    {
+      "name": "Supply",
+      "discriminator": [
+        121,
+        60,
+        167,
+        220,
+        239,
+        18,
+        50,
+        226
+      ]
+    },
+    {
+      "name": "SupplyCollateral",
+      "discriminator": [
+        171,
+        235,
+        116,
+        172,
+        84,
+        238,
+        77,
+        131
+      ]
+    },
+    {
+      "name": "Withdraw",
+      "discriminator": [
+        192,
+        241,
+        201,
+        217,
+        70,
+        150,
+        90,
+        247
+      ]
+    },
+    {
+      "name": "WithdrawCollateral",
+      "discriminator": [
+        252,
+        33,
+        217,
+        4,
+        190,
+        199,
+        63,
+        152
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 12000,
+      "name": "Unauthorized",
+      "msg": "Caller is not authorized to perform this action"
+    },
+    {
+      "code": 12001,
+      "name": "InvalidOwner",
+      "msg": "Invalid owner for this operation"
+    },
+    {
+      "code": 12002,
+      "name": "AuthorizationExpired",
+      "msg": "Authorization has expired"
+    },
+    {
+      "code": 12003,
+      "name": "AuthorizationRevoked",
+      "msg": "Authorization has been revoked"
+    },
+    {
+      "code": 12010,
+      "name": "ZeroAmount",
+      "msg": "Amount must be greater than zero"
+    },
+    {
+      "code": 12011,
+      "name": "InvalidInput",
+      "msg": "Cannot specify both assets and shares"
+    },
+    {
+      "code": 12012,
+      "name": "SlippageExceeded",
+      "msg": "Slippage tolerance exceeded"
+    },
+    {
+      "code": 12013,
+      "name": "InvalidLltv",
+      "msg": "Invalid LLTV value (must be 0 < lltv <= 10000)"
+    },
+    {
+      "code": 12014,
+      "name": "FeeTooHigh",
+      "msg": "Fee exceeds maximum allowed (25%)"
+    },
+    {
+      "code": 12015,
+      "name": "InvalidMint",
+      "msg": "Invalid mint address"
+    },
+    {
+      "code": 12016,
+      "name": "InvalidOracle",
+      "msg": "Invalid oracle address"
+    },
+    {
+      "code": 12017,
+      "name": "InvalidIrm",
+      "msg": "Invalid IRM address"
+    },
+    {
+      "code": 12018,
+      "name": "InvalidMarketId",
+      "msg": "Invalid market ID"
+    },
+    {
+      "code": 12030,
+      "name": "MarketExists",
+      "msg": "Market already exists"
+    },
+    {
+      "code": 12031,
+      "name": "MarketNotFound",
+      "msg": "Market does not exist"
+    },
+    {
+      "code": 12032,
+      "name": "LltvNotEnabled",
+      "msg": "LLTV is not enabled"
+    },
+    {
+      "code": 12033,
+      "name": "IrmNotEnabled",
+      "msg": "IRM is not enabled"
+    },
+    {
+      "code": 12034,
+      "name": "AlreadyEnabled",
+      "msg": "Parameter already enabled"
+    },
+    {
+      "code": 12035,
+      "name": "MaxLltvsReached",
+      "msg": "Maximum LLTVs reached"
+    },
+    {
+      "code": 12036,
+      "name": "MaxIrmsReached",
+      "msg": "Maximum IRMs reached"
+    },
+    {
+      "code": 12050,
+      "name": "InsufficientBalance",
+      "msg": "Insufficient supply balance"
+    },
+    {
+      "code": 12051,
+      "name": "InsufficientCollateral",
+      "msg": "Insufficient collateral"
+    },
+    {
+      "code": 12052,
+      "name": "InsufficientLiquidity",
+      "msg": "Insufficient market liquidity"
+    },
+    {
+      "code": 12070,
+      "name": "PositionUnhealthy",
+      "msg": "Position would become unhealthy"
+    },
+    {
+      "code": 12071,
+      "name": "PositionHealthy",
+      "msg": "Position is healthy, cannot liquidate"
+    },
+    {
+      "code": 12072,
+      "name": "PositionNotEmpty",
+      "msg": "Position is not empty, cannot close"
+    },
+    {
+      "code": 12080,
+      "name": "ProtocolPaused",
+      "msg": "Protocol is paused"
+    },
+    {
+      "code": 12081,
+      "name": "MarketPaused",
+      "msg": "Market is paused"
+    },
+    {
+      "code": 12090,
+      "name": "OracleStale",
+      "msg": "Oracle price is stale"
+    },
+    {
+      "code": 12091,
+      "name": "OracleInvalidPrice",
+      "msg": "Oracle returned invalid price"
+    },
+    {
+      "code": 12092,
+      "name": "OracleError",
+      "msg": "Oracle error"
+    },
+    {
+      "code": 12093,
+      "name": "OracleNoReturnData",
+      "msg": "Oracle returned no data"
+    },
+    {
+      "code": 12094,
+      "name": "OracleInvalidProgram",
+      "msg": "Oracle return data from unexpected program"
+    },
+    {
+      "code": 12095,
+      "name": "OracleInvalidReturnData",
+      "msg": "Oracle return data malformed"
+    },
+    {
+      "code": 12096,
+      "name": "OraclePriceTooHigh",
+      "msg": "Oracle price exceeds maximum"
+    },
+    {
+      "code": 12097,
+      "name": "OraclePriceTooLow",
+      "msg": "Oracle price below minimum"
+    },
+    {
+      "code": 12110,
+      "name": "IrmInvalidRate",
+      "msg": "IRM returned invalid rate"
+    },
+    {
+      "code": 12111,
+      "name": "IrmError",
+      "msg": "IRM error"
+    },
+    {
+      "code": 12112,
+      "name": "IrmNoReturnData",
+      "msg": "IRM returned no data"
+    },
+    {
+      "code": 12113,
+      "name": "IrmInvalidProgram",
+      "msg": "IRM return data from unexpected program"
+    },
+    {
+      "code": 12114,
+      "name": "IrmInvalidReturnData",
+      "msg": "IRM return data malformed"
+    },
+    {
+      "code": 12115,
+      "name": "IrmRateTooHigh",
+      "msg": "IRM rate exceeds maximum"
+    },
+    {
+      "code": 12120,
+      "name": "MathOverflow",
+      "msg": "Math overflow"
+    },
+    {
+      "code": 12121,
+      "name": "MathUnderflow",
+      "msg": "Math underflow"
+    },
+    {
+      "code": 12122,
+      "name": "DivisionByZero",
+      "msg": "Division by zero"
+    },
+    {
+      "code": 12123,
+      "name": "AmountOverflow",
+      "msg": "Amount exceeds u64 maximum"
+    },
+    {
+      "code": 12140,
+      "name": "FlashLoanNotRepaid",
+      "msg": "Flash loan not repaid within transaction"
+    },
+    {
+      "code": 12141,
+      "name": "FlashLoanInProgress",
+      "msg": "Flash loan already in progress"
+    },
+    {
+      "code": 12142,
+      "name": "FlashLoanCallbackFailed",
+      "msg": "Flash loan callback failed"
+    }
+  ],
+  "types": [
+    {
+      "name": "Authorization",
+      "docs": [
+        "Authorization delegation account",
+        "",
+        "PDA Seeds: [PROGRAM_SEED_PREFIX, b\"morpho_authorization\", authorizer, authorized]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "authorizer",
+            "docs": [
+              "Account that granted authorization"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "authorized",
+            "docs": [
+              "Account that received authorization"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "is_authorized",
+            "docs": [
+              "Whether authorization is currently active"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "is_revoked",
+            "docs": [
+              "Revocation flag (once revoked, cannot be re-enabled without new account)"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "expires_at",
+            "docs": [
+              "Expiration timestamp (0 = no expiry)"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "reserved",
+            "docs": [
+              "Reserved for future use"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuthorizationRevoked",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authorizer",
+            "type": "pubkey"
+          },
+          {
+            "name": "authorized",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuthorizationSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authorizer",
+            "type": "pubkey"
+          },
+          {
+            "name": "authorized",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_authorized",
+            "type": "bool"
+          },
+          {
+            "name": "expires_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BadDebtRealized",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "bad_debt_assets",
+            "type": "u128"
+          },
+          {
+            "name": "bad_debt_shares",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Borrow",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "caller",
+            "type": "pubkey"
+          },
+          {
+            "name": "on_behalf_of",
+            "type": "pubkey"
+          },
+          {
+            "name": "receiver",
+            "type": "pubkey"
+          },
+          {
+            "name": "assets",
+            "type": "u128"
+          },
+          {
+            "name": "shares",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeeRecipientSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "old_recipient",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_recipient",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeeSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeesClaimed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "recipient",
+            "type": "pubkey"
+          },
+          {
+            "name": "shares",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FlashLoan",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u128"
+          },
+          {
+            "name": "fee",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InterestAccrued",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "interest",
+            "type": "u128"
+          },
+          {
+            "name": "fee_shares",
+            "type": "u128"
+          },
+          {
+            "name": "total_supply_assets",
+            "type": "u128"
+          },
+          {
+            "name": "total_borrow_assets",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "IrmEnabled",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "irm",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Liquidation",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "liquidator",
+            "type": "pubkey"
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "repaid_assets",
+            "type": "u128"
+          },
+          {
+            "name": "repaid_shares",
+            "type": "u128"
+          },
+          {
+            "name": "seized_collateral",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LltvEnabled",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lltv",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Market",
+      "docs": [
+        "Individual lending market state",
+        "",
+        "PDA Seeds: [PROGRAM_SEED_PREFIX, b\"morpho_market\", market_id]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "market_id",
+            "docs": [
+              "Unique market identifier (keccak256 hash of parameters)"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "collateral_mint",
+            "docs": [
+              "Collateral token mint"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "loan_mint",
+            "docs": [
+              "Loan token mint"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_decimals",
+            "docs": [
+              "Collateral token decimals (cached for gas savings)"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "loan_decimals",
+            "docs": [
+              "Loan token decimals (cached for gas savings)"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "oracle",
+            "docs": [
+              "Oracle program/account for price"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "irm",
+            "docs": [
+              "Interest rate model program"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "lltv",
+            "docs": [
+              "Loan-to-value ratio (basis points, e.g., 8500 = 85%)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Market-specific pause flag"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "fee",
+            "docs": [
+              "Protocol fee (basis points, max 2500 = 25%)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_supply_assets",
+            "docs": [
+              "Total loan tokens supplied (increases with interest)"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "total_supply_shares",
+            "docs": [
+              "Total supply shares outstanding"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "total_borrow_assets",
+            "docs": [
+              "Total loan tokens borrowed (increases with interest)"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "total_borrow_shares",
+            "docs": [
+              "Total borrow shares outstanding"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "last_update",
+            "docs": [
+              "Last interest accrual timestamp"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "pending_fee_shares",
+            "docs": [
+              "Accumulated fee shares owed to fee_recipient",
+              "Periodically claimed via claim_fees instruction"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "collateral_vault_bump",
+            "docs": [
+              "Bump for collateral vault PDA"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "loan_vault_bump",
+            "docs": [
+              "Bump for loan vault PDA"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "flash_loan_lock",
+            "docs": [
+              "Flash loan lock (non-zero means flash loan in progress)"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "reserved",
+            "docs": [
+              "Reserved for future use"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                127
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "collateral_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "loan_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle",
+            "type": "pubkey"
+          },
+          {
+            "name": "irm",
+            "type": "pubkey"
+          },
+          {
+            "name": "lltv",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketPausedSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OwnershipTransferStarted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "current_owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "pending_owner",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OwnershipTransferred",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "previous_owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_owner",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Position",
+      "docs": [
+        "User position in a specific market",
+        "",
+        "PDA Seeds: [PROGRAM_SEED_PREFIX, b\"morpho_position\", market_id, owner]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "market_id",
+            "docs": [
+              "Market this position belongs to"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "Position owner"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "supply_shares",
+            "docs": [
+              "Supply shares (earns interest via share appreciation)"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "borrow_shares",
+            "docs": [
+              "Borrow shares (owes interest via share appreciation)"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "collateral",
+            "docs": [
+              "Collateral amount (raw tokens, NOT shares)",
+              "Collateral does not earn interest in Morpho Blue"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "reserved",
+            "docs": [
+              "Reserved for future use"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "PositionClosed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PositionCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProtocolInitialized",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_recipient",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProtocolPausedSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "paused",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProtocolState",
+      "docs": [
+        "Protocol-wide state account",
+        "",
+        "PDA Seeds: [PROGRAM_SEED_PREFIX, b\"morpho_protocol\"]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "Protocol owner (can transfer ownership, manage settings)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "pending_owner",
+            "docs": [
+              "Pending owner for 2-step ownership transfer"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_recipient",
+            "docs": [
+              "Receives protocol fees from all markets"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Global pause flag - stops all user operations across all markets"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "lltv_count",
+            "docs": [
+              "Number of enabled LLTVs (active count in the array)"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "enabled_lltvs",
+            "docs": [
+              "Whitelisted LLTV values (basis points, e.g., 8500 = 85%)",
+              "Fixed-size array for predictable account size"
+            ],
+            "type": {
+              "array": [
+                "u64",
+                20
+              ]
+            }
+          },
+          {
+            "name": "irm_count",
+            "docs": [
+              "Number of enabled IRMs"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "enabled_irms",
+            "docs": [
+              "Whitelisted IRM program addresses",
+              "Fixed-size array for predictable account size"
+            ],
+            "type": {
+              "array": [
+                "pubkey",
+                10
+              ]
+            }
+          },
+          {
+            "name": "market_count",
+            "docs": [
+              "Total markets created (for stats)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reserved",
+            "docs": [
+              "Reserved for future upgrades"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                256
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Repay",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "repayer",
+            "type": "pubkey"
+          },
+          {
+            "name": "on_behalf_of",
+            "type": "pubkey"
+          },
+          {
+            "name": "assets",
+            "type": "u128"
+          },
+          {
+            "name": "shares",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Supply",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "supplier",
+            "type": "pubkey"
+          },
+          {
+            "name": "on_behalf_of",
+            "type": "pubkey"
+          },
+          {
+            "name": "assets",
+            "type": "u128"
+          },
+          {
+            "name": "shares",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SupplyCollateral",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "depositor",
+            "type": "pubkey"
+          },
+          {
+            "name": "on_behalf_of",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Withdraw",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "caller",
+            "type": "pubkey"
+          },
+          {
+            "name": "on_behalf_of",
+            "type": "pubkey"
+          },
+          {
+            "name": "receiver",
+            "type": "pubkey"
+          },
+          {
+            "name": "assets",
+            "type": "u128"
+          },
+          {
+            "name": "shares",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WithdrawCollateral",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "caller",
+            "type": "pubkey"
+          },
+          {
+            "name": "on_behalf_of",
+            "type": "pubkey"
+          },
+          {
+            "name": "receiver",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u128"
+          }
+        ]
+      }
+    }
+  ]
+}

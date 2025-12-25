@@ -1,0 +1,32 @@
+[features]
+seeds = false
+skip-lint = false
+
+[programs.localnet]
+morpho_solana = "MorphoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+[programs.devnet]
+morpho_solana = "MorphoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+[programs.mainnet]
+morpho_solana = "MorphoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[test]
+startup_wait = 5000
+
+[test.validator]
+url = "https://api.mainnet-beta.solana.com"
+
+# Clone accounts for testing
+[[test.validator.clone]]
+address = "H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG" # Pyth SOL/USD
