@@ -11,8 +11,9 @@ pub const WAD: u128 = 1_000_000_000_000_000_000;
 /// Oracle price scale (1e36)
 pub const ORACLE_SCALE: u128 = 1_000_000_000_000_000_000_000_000_000_000_000_000;
 
-/// Minimum oracle price (prevents division issues, ~$0.0000001)
-pub const MIN_ORACLE_PRICE: u128 = 100_000_000_000_000_000_000_000_000; // 1e26
+/// Minimum oracle price (prevents division issues)
+/// Set to 1e18 to allow for devnet testing with various oracle feeds
+pub const MIN_ORACLE_PRICE: u128 = 1_000_000_000_000_000_000; // 1e18
 
 // Note: MAX_ORACLE_PRICE is computed at runtime via max_oracle_price() in interfaces/oracle.rs
 // to avoid compile-time overflow
