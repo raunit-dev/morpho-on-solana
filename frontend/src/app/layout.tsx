@@ -1,23 +1,18 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { WalletContextProvider } from "@/lib/wallet-adapter";
-import { Toaster } from "@/components/ui/sonner";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { WalletContextProvider } from '@/components/wallet/WalletProvider';
+import { Header } from '@/components/layout/Header';
+import { Toaster } from '@/components/ui/sonner';
 
 const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
+  variable: '--font-sans',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Morpho Blue Solana",
-  description: "Isolated lending markets on Solana",
+  title: 'Morpho Blue Solana',
+  description: 'Isolated lending markets on Solana - Supply, Borrow, and Earn',
 };
 
 export default function RootLayout({
@@ -27,17 +22,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-background text-foreground`}
-      >
+      <body className={`${inter.variable} antialiased min-h-screen bg-background text-foreground`}>
         <WalletContextProvider>
           <div className="relative flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1 container py-8">
+            <Header />
+            <main className="flex-1">
               {children}
             </main>
-            <Toaster />
+            <footer className="border-t py-6 md:py-0">
+              <div className="container flex h-14 items-center justify-between text-sm text-muted-foreground">
+                <span>© 2024 Morpho Blue Solana</span>
+                <span>Deployed on Devnet</span>
+              </div>
+            </footer>
           </div>
+          <Toaster />
         </WalletContextProvider>
       </body>
     </html>
