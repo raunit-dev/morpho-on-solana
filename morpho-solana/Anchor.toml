@@ -7,10 +7,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-morpho_solana = "9qYe29CskmZ1mcuLLFcQXovfbqXBqLsXpg4y7Rfk9NsE"
+morpho_solana = "HW3AsZnx6An5KP5r17iaqSw3guFwbF1GMDr5a75Auf57"
 
 [programs.devnet]
-morpho_solana = "9qYe29CskmZ1mcuLLFcQXovfbqXBqLsXpg4y7Rfk9NsE"
+morpho_solana = "HW3AsZnx6An5KP5r17iaqSw3guFwbF1GMDr5a75Auf57"
 
 [registry]
 url = "https://api.apr.dev"

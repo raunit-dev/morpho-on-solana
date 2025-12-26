@@ -24,7 +24,7 @@ pub mod instructions;
 
 use instructions::*;
 
-declare_id!("9qYe29CskmZ1mcuLLFcQXovfbqXBqLsXpg4y7Rfk9NsE");
+declare_id!("HW3AsZnx6An5KP5r17iaqSw3guFwbF1GMDr5a75Auf57");
 
 #[program]
 pub mod morpho_solana {
